@@ -61,7 +61,9 @@ binary_palindrome:						#it has two arguments $a0, $a1
 	sub $s4, $31, $s1					# 31-i
 	srlv $s2, $s0, $s4					#shift right (31-i)th
 	sllv $s3, $s0, $s4					#shift left (31-i)
+	#addi $s4, $s4, 1
 	srlv $s3, $s3, $s4					#shift right back (31-i)
+	#sub $s3, $s3, 1
 	# i think this part is wrong
 	# need to find another way
 	#
