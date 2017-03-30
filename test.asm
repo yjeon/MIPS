@@ -25,27 +25,28 @@ main:
 	li $v0, 4
 	syscall
 	#################################################################################
-	
-	addi $t1, $zero, 9
+	addi $t1, $t0, 0			##t0 == t1
+	addi $s0, $zero, 4
 	#sub $t1, $t4, 10
 						# 31-i
 	#srlv $s2, $t0, $t1					#shift right (31-i)th
-	addi $t5, $zero, 31
+	addi $s1, $zero, 31
 	#sllv $s3, $a0, $t1					#shift left (31-i)
-	sllv $s2, $t0, $t1
-	addi $s3, $s2, 0
-	srlv $s2, $s3, $t5
+	sllv $t2, $t0, $s0
+	addi $t3, $t2, 0
+	srlv $t2, $t3, $s1
 	
 	#addi $t5, $zero, 24
-	addi $t2, $a0, 0
-	
-	sllv $s3, $t2, $t1
-	srlv $s3, $s3, $t1
+	sub $s2, $31, $s0
+	#addi $s6, $t1, 0
+	sllv $t4, $t1, $s2 
+	addi $t5, $t4, 0
+	srlv $t4, $t5, $s1
 
 	
 	#################################################################################
 	
-	addi $a0, $s2, 0
+	addi $a0, $t2, 0
 	addi $v0, $a0, 0
 	li $v0, 35			#print the number base 2s
 	syscall
@@ -55,6 +56,6 @@ main:
 	li $v0, 4
 	syscall
 	
-	addi $a0, $s3, 0
+	addi $a0, $t4, 0
 	li $v0, 35
 	syscall
