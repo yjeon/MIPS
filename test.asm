@@ -26,20 +26,21 @@ main:
 	syscall
 	#################################################################################
 	
-	
-	#addi $t1, $zero, 15
-	addi $t4, $zero, 31
-	sub $t1, $t4, 9
+	addi $t1, $zero, 9
+	#sub $t1, $t4, 10
 						# 31-i
 	#srlv $s2, $t0, $t1					#shift right (31-i)th
-	
+	addi $t5, $zero, 31
 	#sllv $s3, $a0, $t1					#shift left (31-i)
+	sllv $s2, $t0, $t1
+	addi $s3, $s2, 0
+	srlv $s2, $s3, $t5
 	
-	srlv $s2, $t0, $t1
+	#addi $t5, $zero, 24
+	addi $t2, $a0, 0
 	
-	addi $t5, $zero, 24
-	sllv $s3, $t0, $t1
-	srl $s3, $s3, 31
+	sllv $s3, $t2, $t1
+	srlv $s3, $s3, $t1
 
 	
 	#################################################################################
