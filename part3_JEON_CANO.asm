@@ -1,5 +1,5 @@
 #################################################
-# CS 465 Homework #3
+# CS 465 Homework #3 part3
 # Author: Jose Cano, Yoonchan Jeon
 # ID: jcano, yjeon
 #
