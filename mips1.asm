@@ -37,13 +37,33 @@ main:
 
 .globl opt_multiply					#declare the subroutine to be global
 opt_multiply:
-	addi $s0, $a0, 0
-	addi $s1, $a1, 0
+	addi $s0, $a0, 0				# multiplicand
+	addi $s1, $a1, 0				# it will be the product
+	addi $t1, $a1, 0 				# checking original multiplier
 	
+loop:	
+	beq $t1, $zero, ExitReturn
+	andi $t2, $s1, 1
+	beq $t2, $zero, zeroTerm
+	#case last bit is 1
+	addi $t4, $s0, 0
+	sll $t5, $t4, 16
+	addu $t4, $t5, $s1
+	addu $s1, $s1, $t4
+	srl $t3, $t1, 1
+	addi $t1, $t3, 0
+	j loop
 	
+zeroTerm:
+	 srl $s2, $s1, 1
+	 addi $s1, $s2, 0
+	 srl $t3, $t1, 1
+	 addi $t1, $t3, 0
+	 j loop
 	
-	
-	
+ExitReturn:
+	srl $s4, $s2, 1
+	addi $v0, $s4, 0
 	jr $ra
 	
 
