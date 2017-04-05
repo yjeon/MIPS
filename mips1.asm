@@ -48,7 +48,7 @@ loop2:
 	addi $t9, $t9, 1
 	srl $t8, $t8, 1
 	bne $t8, $zero, loop2
-	
+
 loop:	
 	beq $t1, $zero, ExitReturn
 	andi $t2, $s1, 1
@@ -62,16 +62,30 @@ loop:
 	##################33
 	addi $t4, $zero, 0
 	
-	add $t4, $t5, $s1
+	addu $t4, $t5, $s1
 	addi $s1, $t4, 0
-	
+	# shift t4 
+	addi $t6, $s1, 0
 	srl $s2, $s1, 1
 	addi $s1, $zero, 0
+	srl $t6, $t6, 31
+	beq $t6, 1, check1
+	j noOverFlow
+check1:
+	addi $t7, $t5, 0
+	srl $t7, $t7, 31
+	beq $t7, 1, overFlow
+
+noOverFlow:
 	addi $s1, $s2, 0
+	j multply2
 	#####################
 	#need to check overflow
 	#if there was overflow before shifting then add 2147483648
-	#addi $s1, $s2, 2147483648
+overFlow:
+	addi $s1, $s2, 2147483648
+multply2:
+	
 	srl $t3, $t1, 1
 	addi $t1, $zero, 0
 	addi $t1, $t3, 0
