@@ -4,7 +4,27 @@
 # ID: jcano, yjeon
 #
 # Algorithm:
-#
+#	main:
+#		a0 <- get user input
+#		print a0 as binary numver
+#		call binary_palindrome(a0,0) as recursive
+#		binary_palindrome (a,i):
+#			a is the first argument
+#			if(i>=16) goto true_bp
+#			else:
+#				t1 <- shift left a to i
+#				and shift right it to 31
+#				t2 <-shift left a to 31-i
+#				and shift right it to 31
+#				and compare (t1,t2)
+#				if it is true
+#					return binary_palindrome(a,i+1)
+#				else
+#					False
+#		if return value is true
+#			print "It is a binary palindrome."
+#		else
+#			print "It is not a binary palindrome."		
 #################################################
 
 
@@ -58,36 +78,37 @@ binary_palindrome:						#it has two arguments $a0, $a1
 	addi $s2, $a0, 0
 	beq $a1, 16, true_bp
 	
-	addi $t0, $s1, 0
-	addi $t1, $zero, 31
+	addi $t0, $s1, 0					
+	addi $t1, $zero, 31					#set the value for shifting
 	addi $s3, $zero,0
 	
-	sllv $s3, $s0, $t0
+	sllv $s3, $s0, $t0					#shift left a0 to $t0 bits
 	addi $s4, $s3, 0
-	srlv $s3, $s4, $t1
+	srlv $s3, $s4, $t1					#shift right a0 to 31 bits
 	
-	sub $t2, $t1, $s1
+	sub $t2, $t1, $s1					#31-i
 	addi $s5, $zero,0
 	
-	sllv $s5, $s2, $t2
+	sllv $s5, $s2, $t2					#shift left a0 to 31-i bits
 	addi $s6, $s5, 0
-	srlv $s5, $s6, $t1
+	srlv $s5, $s6, $t1					#shift right 10 to 31 bits
 	
 	#$s5 and $s3
-	bne $s3, $s5, false_bp
-	addi $a0, $t9, 0
+	bne $s3, $s5, false_bp					#compare it
+	addi $a0, $t9, 0					#it it is not the same, goto false_bp
 	addi $a1, $a1, 1
-	jal binary_palindrome
+	jal binary_palindrome					#if it is the same, return binary_palindrome
+								#recursive
 	
 
-true_bp:
+true_bp:							#case true state
 	
 	la $a0, resultYes
 	li $v0, 4
 	j exit
 	
 	
-false_bp:
+false_bp:							#case false state
 	
 	la $a0, resultNo
 	li $v0, 4
@@ -95,5 +116,5 @@ false_bp:
 	
 	
 exit:
-	syscall
+	syscall							#print the result
 
